@@ -1,0 +1,31 @@
+{
+  "name": "learnnodejs",
+  "version": "1.0.0",
+  "description": "belajar //ini project",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pejuangbitco/learnNodeJS.git"
+  },
+  "keywords": [
+    "nodejs",
+    "belajar",
+    "node",
+    "js"
+  ],
+  "author": "m. irsyad m",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pejuangbitco/learnNodeJS/issues"
+  },
+  "homepage": "https://github.com/pejuangbitco/learnNodeJS#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mysql": "^2.16.0"
+  }
+}
