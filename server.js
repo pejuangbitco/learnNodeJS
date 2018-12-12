@@ -24,19 +24,17 @@ app.listen(3001, () => {
     console.log('sedang berjalan pada port 3001')
 })
 
-app.get('/API', (req, res) => {
+app.get('/API/user', (req, res) => {
     mysqlConnection.query('SELECT * FROM user', (error, rows, fields) => {
         if(!error) {
-            rows.forEach( element => {
-                res.send(rows)
-            })
+            res.send(rows)
         }            
         else
             console.log(error)
     })
 })
 
-app.get('/API/:id_user', (req, res) => {
+app.get('/API/user/:id_user', (req, res) => {
     mysqlConnection.query('SELECT * FROM user WHERE id_user = ?', [req.params.id_user],(error, rows, fields) => {
         if(!error) {
             res.send(rows)
@@ -46,7 +44,7 @@ app.get('/API/:id_user', (req, res) => {
     })
 })
 
-app.delete('/API/:id_user', (req, res) => {
+app.delete('/API/user/:id_user', (req, res) => {
     mysqlConnection.query('DELETE FROM user WHERE id_user = ?', [req.params.id_user], (error, rows, fields) => {
         if(!error)
             res.send('Delete data berhasil')
@@ -55,10 +53,13 @@ app.delete('/API/:id_user', (req, res) => {
     })
 })
 
-app.post('/API', (req, res) => {
-    let tmp = req.body 
-    let sql = 'INSERT INTO user VALUE (?,?,?)'
-    mysqlConnection.query(sql, [tmp.id_user, tmp.nama_user, tmp.hp], (error, rows, fields) => {
+app.post('/API/user', (req, res) => {
+    let user = req.body 
+    //let sql = 'INSERT INTO user VALUE (?,?,?)'
+    let sql = 'SET @id_user = ?; SET @nama_user = ?; SET @hp = ?; \
+    CALL UserAddorEdit(@id_user, @nama_user, @hp);'
+    
+    mysqlConnection.query(sql, [user.id_user, user.nama_user, user.hp], (error, rows, fields) => {
         if(!error) 
             res.send('sukses insert data')
         else
@@ -66,10 +67,12 @@ app.post('/API', (req, res) => {
     })
 })
 
-app.put('/API', (req, res) => {
-    let tmp = req.body 
-    let sql = 'UPDATE user SET id_user=?, nama_user=?, hp=? WHERE id_user=?'
-    mysqlConnection.query(sql, [tmp.id_user, tmp.nama_user, tmp.hp, tmp.id_user], (error, rows, fields) => {
+app.put('/API/user', (req, res) => {
+    let user = req.body 
+    //let sql = 'UPDATE user SET id_user=?, nama_user=?, hp=? WHERE id_user=?'
+    let sql = 'SET @id_user = ?; SET @nama_user = ?; SET @hp = ?; \
+    CALL UserAddorEdit(@id_user, @nama_user, @hp);'
+    mysqlConnection.query(sql, [user.id_user, user.nama_user, user.hp], (error, rows, fields) => {
         if(!error) 
             res.send('sukses update data')
         else
