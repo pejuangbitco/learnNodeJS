@@ -58,7 +58,7 @@ app.delete('/API/:id_user', (req, res) => {
 app.post('/API', (req, res) => {
     let tmp = req.body 
     let sql = 'INSERT INTO user VALUE (?,?,?)'
-    mysqlConnection.query(sql, [tmp.id_user, tmp.nama_mk, tmp.sks], (error, rows, fields) => {
+    mysqlConnection.query(sql, [tmp.id_user, tmp.nama_user, tmp.hp], (error, rows, fields) => {
         if(!error) 
             res.send('sukses insert data')
         else
@@ -68,8 +68,8 @@ app.post('/API', (req, res) => {
 
 app.put('/API', (req, res) => {
     let tmp = req.body 
-    let sql = 'UPDATE user SET id_user=?, nama_mk=?, sks=? WHERE id_user=?'
-    mysqlConnection.query(sql, [tmp.id_user, tmp.nama_mk, tmp.sks, tmp.id_user], (error, rows, fields) => {
+    let sql = 'UPDATE user SET id_user=?, nama_user=?, hp=? WHERE id_user=?'
+    mysqlConnection.query(sql, [tmp.id_user, tmp.nama_user, tmp.hp, tmp.id_user], (error, rows, fields) => {
         if(!error) 
             res.send('sukses update data')
         else
