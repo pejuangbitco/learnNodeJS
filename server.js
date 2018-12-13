@@ -34,13 +34,25 @@ app.get('/API/user', (req, res) => {
     })
 })
 
+app.get('/API/user/:id_user&hp=:hp', (req, res) => {
+    console.log(req.params)
+    mysqlConnection.query('SELECT * FROM user WHERE id_user = ? AND hp = ?', [req.params.id_user,req.params.hp],(error, rows, fields) => {
+        if(!error) {
+            res.send(rows)
+        }            
+        else
+            console.log(error) 
+    })
+})
+
 app.get('/API/user/:id_user', (req, res) => {
+    console.log(req.params)
     mysqlConnection.query('SELECT * FROM user WHERE id_user = ?', [req.params.id_user],(error, rows, fields) => {
         if(!error) {
             res.send(rows)
         }            
         else
-            console.log(error)
+            console.log(error) 
     })
 })
 
